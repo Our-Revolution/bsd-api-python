@@ -54,7 +54,7 @@ class Filters:
                 filters[key] = "(%s)" % (','.join(value))
             elif key == 'cons_group' and type(value).__name__ == 'list' and len(value) == 1:
                 filters[key] = value[0]
-            elif key == 'cons_group' and type(value).__name__ == 'int':
+            elif key == 'cons_group' and type(value).__name__ == 'str':
                 filters[key] = value
             else:
                 raise FilterError('Incorrect Filter parameters')
