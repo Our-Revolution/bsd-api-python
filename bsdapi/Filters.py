@@ -24,7 +24,15 @@ class Filters:
     def _collapse(self):
         filters = {}
         for key, value in self.filters.items():
-            if key not in ['state_cd', 'primary_state_cd', 'is_subscribed', 'has_account', 'signup_form_id', 'email']:
+            if key not in [
+                'state_cd',
+                'primary_state_cd',
+                'is_subscribed',
+                'has_account',
+                'signup_form_id',
+                'email',
+                'cons_group',
+            ]:
                 raise FilterError('Incorrect filter parameter')
             elif key == 'state_cd' and type(value).__name__ == 'list' and len(value) > 1:
                 filters[key] = "(%s)" % (','.join(value))
@@ -42,6 +50,12 @@ class Filters:
                 filters[key] = str(value)
             elif key == 'email':
                 filters[key] = str(value)
+            elif key == 'cons_group' and type(value).__name__ == 'list' and len(value) > 1:
+                filters[key] = "(%s)" % (','.join(value))
+            elif key == 'cons_group' and type(value).__name__ == 'list' and len(value) == 1:
+                filters[key] = value[0]
+            elif key == 'cons_group' and type(value).__name__ == 'str':
+                filters[key] = value
             else:
                 raise FilterError('Incorrect Filter parameters')
 
